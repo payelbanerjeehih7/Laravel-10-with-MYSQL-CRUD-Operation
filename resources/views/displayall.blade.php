@@ -11,6 +11,15 @@
 	@if(session('message'))
 		<div class="alert alert-danger">{{session('message')}}</div>
 	@endif
+	<Form action="" class="col-9">
+		<div class="form-group">
+			<input type="search" name="search" id="" placeholder="Search by Name or Email" class="col-7" value="">
+			<input type="submit" name="submit" id="" value="Search" class="btn btn-success">
+			<a href="{{url('/displayall')}}">
+				<button class="btn btn-danger">Reset</button>
+			</a>
+		</div>
+	</Form>
 	<div class="table-responsiv">
 		<table border="1" cellpadding="20" cellspacing="0" class="table table-hover table-border">
 			<h2>Welcome Admin</h2>
@@ -46,5 +55,8 @@
 		</table>
 	</div>
 	@endif
+	<div class="row">
+	{{$allinfo->links("pagination::bootstrap-4")}}
+	</div>
 </body>
 </html>

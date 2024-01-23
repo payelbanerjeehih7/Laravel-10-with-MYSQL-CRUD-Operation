@@ -55,12 +55,27 @@ class MainController extends Controller
             return redirect('/insert')->with('message','Email already exists');
         }
     }
-    public function displayall():View
+    // public function displayall():View
+    // {
+    //     $user='client';
+    //     $data=DB::table('finalassessments')->where('user','=',$user)->paginate(2);
+    //     return view('displayall')->with(['allinfo'=>$data]);
+    // }
+
+    public function displayall(Request $request)
     {
         $user='client';
-        $data=DB::table('finalassessments')->where('user','=',$user)->get();
-        return view('displayall')->with(['allinfo'=>$data]);
+        $search= $request['search'] ?? "";
+        if ($search != "") {
+                $data=DB::table('finalassessments')->where('name','LIKE',"%$search%")->orWhere('email','LIKE',"%$search%")->paginate(4);
+            } else {                
+                $data=DB::table('finalassessments')->where('user','=',$user)->paginate(2);
+                
+            }
+            // $data1 = compact('customers' 'search');
+            return view('displayall')->with(['allinfo'=>$data]);
     }
+
     public function displayclient($dc):View
     {
         $userid=$dc;
